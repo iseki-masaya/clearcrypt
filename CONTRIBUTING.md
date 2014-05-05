@@ -26,10 +26,10 @@ The following are adapted from the [Coding Rules] on https://cryptocoding.net/:
 2. Thou shalt not branch on secret data
 3. Thou shalt not perform table lookups indexed by secret data
 4. Thou shalt not bound loops with secret-dependent values
-5. Thou shalt always try to outsmart compiler optimizations which might affect
-   the security of a given function
-6. Thou shalt always make potentially insecure versions of an API obvious so
-   it is never confused with the secure version
+5. Thou shalt always try to outsmart compiler optimizations which might impact
+   security
+6. Thou shalt always make potentially insecure APIs obvious so they're never
+   confused with secure ones
 7. Thou shalt always diligently separate the abstraction levels of the
    library into separate layers
 8. Thou shalt always use unsigned bytes to represent binary data
