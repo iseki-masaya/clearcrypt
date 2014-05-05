@@ -38,6 +38,12 @@ The following are adapted from the [Coding Rules] on https://cryptocoding.net/:
 11. Thou shalt always clean thy memory of secret data
 12. Thou shalt always use strong randomness
 
+## Style
+
+Please follow the [Rust style guide].
+
+[Rust style guide]: https://github.com/mozilla/rust/wiki/Note-style-guide
+
 ## Include a test
 
 All pull requests containing code should include tests. These tests should
