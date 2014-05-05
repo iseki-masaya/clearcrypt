@@ -31,28 +31,21 @@ use test::Bencher;
 // Macros
 //--------
 
-// Bitwise left-rotate
-macro_rules! rotl32(
-  ($val:expr, $n:expr) => (
-    asm!("roll $2, $0" : "=r"($val) : "0"($val), "I"($n));
-  );
-)
-
-// Qu$arter round
+// Quarter round
 macro_rules! chacha_qround(
   ($block:expr, $a:expr, $b:expr, $c:expr, $d:expr) => ({
     $block[$a] += $block[$b];
     $block[$d] ^= $block[$a];
-    rotl32!($block[$d], 16);
+    $block[$d] = ($block[$d] << 16) | ($block[$d] >> 16);
     $block[$c] += $block[$d];
     $block[$b] ^= $block[$c];
-    rotl32!($block[$b], 12);
+    $block[$b] = ($block[$b] << 12) | ($block[$b] >> 20);
     $block[$a] += $block[$b];
     $block[$d] ^= $block[$a];
-    rotl32!($block[$d], 8);
+    $block[$d] = ($block[$d] << 8) | ($block[$d] >> 24);
     $block[$c] += $block[$d];
     $block[$b] ^= $block[$c];
-    rotl32!($block[$b], 7);
+    $block[$b] = ($block[$b] << 7) | ($block[$b] >> 25);
   });
 )
 
@@ -88,16 +81,14 @@ fn chacha_produce_block(ctx: &mut ChaCha) {
 
   // Ten double rounds are twenty rounds
   for _ in range(0u, 10) {
-    unsafe {
-      chacha_qround!(ctx.block, 0, 4, 8, 12);
-      chacha_qround!(ctx.block, 1, 5, 9, 13);
-      chacha_qround!(ctx.block, 2, 6, 10, 14);
-      chacha_qround!(ctx.block, 3, 7, 11, 15);
-      chacha_qround!(ctx.block, 0, 5, 10, 15);
-      chacha_qround!(ctx.block, 1, 6, 11, 12);
-      chacha_qround!(ctx.block, 2, 7, 8, 13);
-      chacha_qround!(ctx.block, 3, 4, 9, 14);
-    }
+    chacha_qround!(ctx.block, 0, 4, 8, 12);
+    chacha_qround!(ctx.block, 1, 5, 9, 13);
+    chacha_qround!(ctx.block, 2, 6, 10, 14);
+    chacha_qround!(ctx.block, 3, 7, 11, 15);
+    chacha_qround!(ctx.block, 0, 5, 10, 15);
+    chacha_qround!(ctx.block, 1, 6, 11, 12);
+    chacha_qround!(ctx.block, 2, 7, 8, 13);
+    chacha_qround!(ctx.block, 3, 4, 9, 14);
   }
 
   for i in range(0u, 16) {
