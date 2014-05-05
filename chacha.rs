@@ -16,13 +16,14 @@
 #![feature(macro_rules)]
 
 extern crate test;
+extern crate libc;
 
 use std::cast;
 use std::os;
 
 use std::cmp::min;
-use std::libc::types::common::c95::c_void;
-use std::libc::funcs::posix88::mman::mlock;
+use libc::types::common::c95::c_void;
+use libc::funcs::posix88::mman::mlock;
 
 use test::BenchHarness;
 
