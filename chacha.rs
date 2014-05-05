@@ -25,7 +25,7 @@ use std::cmp::min;
 use libc::types::common::c95::c_void;
 use libc::funcs::posix88::mman::mlock;
 
-use test::BenchHarness;
+use test::Bencher;
 
 //--------
 // Macros
@@ -382,7 +382,7 @@ fn chacha20_basic_test() {
 //------------
 
 #[bench]
-fn chacha20_process_16_kibs(bench: &mut test::BenchHarness) {
+fn chacha20_process_16_kibs(bench: &mut test::Bencher) {
   bench.iter(|| {
     let mut ctx = ChaCha::new([0, ..32], &[0, ..8]).unwrap();
     ctx.process([0, ..16*1024]);
@@ -390,7 +390,7 @@ fn chacha20_process_16_kibs(bench: &mut test::BenchHarness) {
 }
 
 #[bench]
-fn chacha20_process_64_kibs(bench: &mut test::BenchHarness) {
+fn chacha20_process_64_kibs(bench: &mut test::Bencher) {
   bench.iter(|| {
     let mut ctx = ChaCha::new([0, ..32], &[0, ..8]).unwrap();
     ctx.process([0, ..64*1024]);
