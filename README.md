@@ -1,3 +1,4 @@
+![ClearCrypt](https://raw.githubusercontent.com/clearcrypt/clearcrypt/master/images/clearcrypt-small.png)
 ClearCrypt
 ==========
 
