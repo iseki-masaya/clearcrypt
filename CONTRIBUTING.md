@@ -10,6 +10,12 @@ think might get accepted. How do you begin?
 
 [mailing list]: https://groups.google.com/forum/#!forum/clearcryptocode
 
+## Philosophy
+
+New features must be treated with extreme scrutiny and suspicion, and rejected
+unless there is a strong consensus that adding these features will benefit the
+majority of the users of the protocol and see mainstream usage.
+
 ## The Twelve Commandments of Crypto Coding
 
 The following are adapted from the [Coding Rules] on https://cryptocoding.net/:
