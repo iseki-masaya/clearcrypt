@@ -51,5 +51,7 @@ attribute, and test the relevant functionality to be added.
 ## Submitting a patch
 
 * Fork this repository on github
-* Make your changes and send us a pull request
+* Create a branch with your changes
+* If you haven't already done so, add yourself to AUTHORS.txt
+* Send a pull request
 * Your change will be discussed for potential inclusion
