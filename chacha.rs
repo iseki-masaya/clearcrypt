@@ -82,12 +82,12 @@ fn chacha_update_state(ctx: &mut ChaCha) {
 // Produce an output block
 #[inline]
 fn chacha_produce_block(ctx: &mut ChaCha) {
-  for i in range(0, 16) {
+  for i in range(0u, 16) {
     ctx.block[i] = ctx.state[i];
   }
 
   // Ten double rounds are twenty rounds
-  for _ in range(0, 10) {
+  for _ in range(0u, 10) {
     unsafe {
       chacha_qround!(ctx.block, 0, 4, 8, 12);
       chacha_qround!(ctx.block, 1, 5, 9, 13);
@@ -100,7 +100,7 @@ fn chacha_produce_block(ctx: &mut ChaCha) {
     }
   }
 
-  for i in range(0, 16) {
+  for i in range(0u, 16) {
     ctx.block[i] += ctx.state[i];
   }
 }
@@ -112,19 +112,19 @@ fn chacha_setup(
     key: &[u8], nonce: &[u8, ..8], constant: &[u8, ..16]) {
 
   let c: &[u32, ..4] = unsafe { cast::transmute(constant) };
-  for n in range(0, 4) {
+  for n in range(0u, 4) {
     ctx.state[n] = c[n];
   }
 
-  let offset = (key.len() / 4 - 4) as int;
+  let offset = (key.len() / 4 - 4) as uint;
   let k: &[u32] = unsafe { cast::transmute(key) };
-  for n in range(0, 4) {
+  for n in range(0u, 4) {
     ctx.state[n + 4] = k[n];
     ctx.state[n + 8] = k[n + offset];
   }
 
   let i: &[u32, ..2] = unsafe { cast::transmute(nonce) };
-  for n in range(0, 2) {
+  for n in range(0u, 2) {
     ctx.state[n + 14] = i[n];
   }
 
@@ -181,7 +181,7 @@ impl ChaCha {
     let bytes = input.len();
     let count = min(bytes, 64 - self.index);
 
-    for i in range(0, count) {
+    for i in range(0u, count) {
       output[i] = input[i] ^ stream[self.index + i];
     }
 
@@ -200,7 +200,7 @@ impl ChaCha {
     offset += count;
 
     while bytes - offset > 64 {
-      for i in range(0, 64) {
+      for i in range(0u, 64) {
         output[offset] = input[offset] ^ stream[i];
         offset += 1;
       }
@@ -211,7 +211,7 @@ impl ChaCha {
 
     let remaining = bytes - offset;
 
-    for i in range(0, remaining) {
+    for i in range(0u, remaining) {
       output[offset] = input[offset] ^ stream[i];
       offset += 1;
     }
@@ -223,7 +223,7 @@ impl ChaCha {
 
 impl Drop for ChaCha {
   fn drop(&mut self) {
-    for i in range(0, 16) {
+    for i in range(0u, 16) {
       self.state[i] = 0;
       self.block[i] = 0;
     }
@@ -371,7 +371,7 @@ fn chacha20_test_vectors() {
 fn chacha20_basic_test() {
   let buffer = [0, ..256];
   let mut ctx = ChaCha::new([0, ..32], &[0, ..8]).unwrap();
-  for i in range(0, 256) {
+  for i in range(0u, 256) {
     let output = ctx.process(buffer.slice(0, i as uint));
     assert_eq!(output.len(), i as uint);
   }
