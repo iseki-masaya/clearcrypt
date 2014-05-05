@@ -50,8 +50,10 @@ attribute, and test the relevant functionality to be added.
 
 ## Submitting a patch
 
-* Fork this repository on github
+* [Fork] this repository on GitHub
 * Create a branch with your changes
-* If you haven't already done so, add yourself to AUTHORS.txt
+* If you haven't already done so, add yourself to `AUTHORS.txt`
 * Send a pull request
 * Your change will be discussed for potential inclusion
+
+[Fork]: https://github.com/clearcrypt/clearcrypt/fork
