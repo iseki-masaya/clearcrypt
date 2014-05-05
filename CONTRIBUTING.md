@@ -22,21 +22,19 @@ The following are adapted from the [Coding Rules] on https://cryptocoding.net/:
 
 [Coding Rules]: https://cryptocoding.net/index.php/Coding_rules
 
-1. Thou shalt always compare secret strings in constant time
-2. Thou shalt not branch on secret data
-3. Thou shalt not perform table lookups indexed by secret data
-4. Thou shalt not bound loops with secret-dependent values
-5. Thou shalt always try to outsmart compiler optimizations which might impact
-   security
-6. Thou shalt always make potentially insecure APIs obvious so they're never
-   confused with secure ones
-7. Thou shalt always diligently separate the abstraction levels of the
-   library into separate layers
-8. Thou shalt always use unsigned bytes to represent binary data
-9. Thou shalt always use separate types for secret and non-secret data
-10. Thou shalt ALWAYS use separate types for different types of information
-11. Thou shalt always clean thy memory of secret data
-12. Thou shalt always use strong randomness
+1. Secret strings MUST be compared in constant time
+2. Programs MUST NOT branch on secret data
+3. Secret data MUST NOT be used for table lookups
+4. Loops MUST NOT be bounded secret-dependent values
+5. Compiler optimizations which might impact security SHOULD be worked around
+6. Potentially insecure APIs MUST be clearly labeled so they're never confused
+   with secure ones
+7. The abstraction levels of the library SHOULD be cleanly separated
+8. Unsigned bytes MUST always be used to represent binary data
+9. Separate types MUST be used for secret and non-secret data
+10. Separate types MUST always be used for different types of information
+11. Memory MUST always be cleaned after use
+12. Random data MUST always come from a secure source
 
 ## Style
 
