@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PREFIX=/usr/lib
+RUSTCFGS=
+
+echo configure: writing Makefile
+sed -e "s|%RUSTCFGS%|$RUSTCFGS|" \
+    -e "s|%PREFIX%|$PREFIX|" \
+    Makefile.in > Makefile
+echo configure: done!
