@@ -1,0 +1,34 @@
+RUSTC ?= rustc
+BUILDDIR := build
+RUSTCFGS := %RUSTCFGS%
+RUSTFLAGS += -O --cfg ndebug $(RUSTCFGS)
+INSTALL_DIR := %PREFIX%
+
+CLEARCRYPT_LIB := src/lib.rs
+CLEARCRYPT := $(foreach file,$(shell $(RUSTC) --print-file-name $(CLEARCRYPT_LIB)),$(BUILDDIR)/$(file))
+CLEARCRYPT_TEST := $(BUILDDIR)/$(shell $(RUSTC) --test --print-file-name $(CLEARCRYPT_LIB))
+
+all: $(CLEARCRYPT)
+
+$(BUILDDIR):
+	mkdir -p $@
+
+$(CLEARCRYPT): $(CLEARCRYPT_LIB) | $(BUILDDIR)
+	$(RUSTC) $(RUSTFLAGS) --out-dir $(@D) $<
+
+check: $(CLEARCRYPT_TEST)
+	$<
+
+$(CLEARCRYPT_TEST): $(CLEARCRYPT_LIB) | $(BUILDDIR)
+	$(RUSTC) $(RUSTFLAGS) --test --out-dir $(@D) $<
+
+clean:
+	rm -rf $(BUILDDIR)
+
+doc: $(CLEARCRYPT)
+	rustdoc $(RUSTCFGS) $(CLEARCRYPT_LIB)
+
+install: $(CLEARCRYPT)
+	install $(CLEARCRYPT) $(INSTALL_DIR)
+
+.PHONY: all check clean print-target
